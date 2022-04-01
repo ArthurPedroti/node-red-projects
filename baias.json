@@ -1,0 +1,570 @@
+[
+  {
+      "id": "f6f2187d.f17ca8",
+      "type": "tab",
+      "label": "Flow 1",
+      "disabled": false,
+      "info": ""
+  },
+  {
+      "id": "24b2eb45f1e88249",
+      "type": "mqtt in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Led Vermelho",
+      "topic": "stat/calderaria/01/POWER1",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "37f0041f14d24997",
+      "nl": false,
+      "rap": true,
+      "rh": 0,
+      "inputs": 0,
+      "x": 210,
+      "y": 200,
+      "wires": [
+          [
+              "78ea74a168d52619"
+          ]
+      ]
+  },
+  {
+      "id": "a6e214e755c949e6",
+      "type": "mqtt in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Led Amarelo",
+      "topic": "stat/calderaria/01/POWER2",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "37f0041f14d24997",
+      "nl": false,
+      "rap": true,
+      "rh": 0,
+      "inputs": 0,
+      "x": 210,
+      "y": 320,
+      "wires": [
+          [
+              "44d12c02ab04df16"
+          ]
+      ]
+  },
+  {
+      "id": "944c6e4df9f62937",
+      "type": "mqtt in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Led Verde",
+      "topic": "stat/calderaria/01/POWER3",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "37f0041f14d24997",
+      "nl": false,
+      "rap": true,
+      "rh": 0,
+      "inputs": 0,
+      "x": 200,
+      "y": 440,
+      "wires": [
+          [
+              "08d2951d8f4b865d"
+          ]
+      ]
+  },
+  {
+      "id": "5ce9a5c682e93593",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "ON",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "red",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 160,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "cb491b732f91c74c",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "ON",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "yellow",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 280,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "1bf9785d22cd4999",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "ON",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "green",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 400,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "7d30304e9f0b21d3",
+      "type": "http in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Baias",
+      "url": "/baias",
+      "method": "get",
+      "upload": false,
+      "swaggerDoc": "",
+      "x": 230,
+      "y": 600,
+      "wires": [
+          [
+              "5eda9b0d9374b6b4",
+              "d8b3c62a68677ad5"
+          ]
+      ]
+  },
+  {
+      "id": "5644ccf80b2cac39",
+      "type": "http response",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "statusCode": "",
+      "headers": {},
+      "x": 650,
+      "y": 600,
+      "wires": []
+  },
+  {
+      "id": "5eda9b0d9374b6b4",
+      "type": "function",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "func": "var payload = {};\n\npayload = {\n    \"id\": \"Calderaria 01\",\n    \"cooperator\": \"Claudio\",\n    \"status\": flow.get(\"color\") || \"off\",\n    \"power\": flow.get(\"power\") || \"off\"\n}\n\nmsg.payload = [payload]\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 460,
+      "y": 600,
+      "wires": [
+          [
+              "5644ccf80b2cac39",
+              "d8b3c62a68677ad5"
+          ]
+      ]
+  },
+  {
+      "id": "d8b3c62a68677ad5",
+      "type": "debug",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 530,
+      "y": 720,
+      "wires": []
+  },
+  {
+      "id": "78ea74a168d52619",
+      "type": "switch",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "eq",
+              "v": "ON",
+              "vt": "str"
+          },
+          {
+              "t": "eq",
+              "v": "OFF",
+              "vt": "str"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 2,
+      "x": 410,
+      "y": 200,
+      "wires": [
+          [
+              "5ce9a5c682e93593"
+          ],
+          [
+              "2803a7895b94eb24"
+          ]
+      ]
+  },
+  {
+      "id": "2803a7895b94eb24",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "OFF",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 220,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "44d12c02ab04df16",
+      "type": "switch",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "eq",
+              "v": "ON",
+              "vt": "str"
+          },
+          {
+              "t": "eq",
+              "v": "OFF",
+              "vt": "str"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 2,
+      "x": 410,
+      "y": 320,
+      "wires": [
+          [
+              "cb491b732f91c74c"
+          ],
+          [
+              "b0cd368fc1f61bef"
+          ]
+      ]
+  },
+  {
+      "id": "b0cd368fc1f61bef",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "OFF",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 340,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "08d2951d8f4b865d",
+      "type": "switch",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "eq",
+              "v": "ON",
+              "vt": "str"
+          },
+          {
+              "t": "eq",
+              "v": "OFF",
+              "vt": "str"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 2,
+      "x": 410,
+      "y": 440,
+      "wires": [
+          [
+              "1bf9785d22cd4999"
+          ],
+          [
+              "f7821ad329a171de"
+          ]
+      ]
+  },
+  {
+      "id": "f7821ad329a171de",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "OFF",
+      "rules": [
+          {
+              "t": "set",
+              "p": "color",
+              "pt": "flow",
+              "to": "",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 610,
+      "y": 460,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "4fe4a26d5f944db6",
+      "type": "mqtt in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Status",
+      "topic": "cmnd/calderaria/01/STATUS",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "37f0041f14d24997",
+      "nl": false,
+      "rap": true,
+      "rh": 0,
+      "inputs": 0,
+      "x": 190,
+      "y": 100,
+      "wires": [
+          [
+              "b2df76d904a3f9d7",
+              "ec72bfda59e2c6a2"
+          ]
+      ]
+  },
+  {
+      "id": "b2df76d904a3f9d7",
+      "type": "debug",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 370,
+      "y": 40,
+      "wires": []
+  },
+  {
+      "id": "ec72bfda59e2c6a2",
+      "type": "switch",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "eq",
+              "v": "11",
+              "vt": "str"
+          },
+          {
+              "t": "eq",
+              "v": "1",
+              "vt": "str"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 2,
+      "x": 390,
+      "y": 100,
+      "wires": [
+          [
+              "e91c53fdebd3716d"
+          ],
+          [
+              "65414a1673ea47fd"
+          ]
+      ]
+  },
+  {
+      "id": "e91c53fdebd3716d",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "rules": [
+          {
+              "t": "set",
+              "p": "power",
+              "pt": "flow",
+              "to": "on",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 580,
+      "y": 60,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "65414a1673ea47fd",
+      "type": "change",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "rules": [
+          {
+              "t": "set",
+              "p": "power",
+              "pt": "flow",
+              "to": "off",
+              "tot": "str"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 580,
+      "y": 100,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "be8d42f12ccd8110",
+      "type": "debug",
+      "z": "f6f2187d.f17ca8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 370,
+      "y": 520,
+      "wires": []
+  },
+  {
+      "id": "d304e1b85f2f68c7",
+      "type": "mqtt in",
+      "z": "f6f2187d.f17ca8",
+      "name": "Broker",
+      "topic": "#",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "37f0041f14d24997",
+      "nl": false,
+      "rap": true,
+      "rh": 0,
+      "inputs": 0,
+      "x": 190,
+      "y": 520,
+      "wires": [
+          [
+              "be8d42f12ccd8110"
+          ]
+      ]
+  },
+  {
+      "id": "37f0041f14d24997",
+      "type": "mqtt-broker",
+      "name": "Mosquitto Broker",
+      "broker": "192.168.2.140",
+      "port": "1883",
+      "clientid": "",
+      "autoConnect": true,
+      "usetls": false,
+      "protocolVersion": "4",
+      "keepalive": "60",
+      "cleansession": true,
+      "birthTopic": "",
+      "birthQos": "0",
+      "birthPayload": "",
+      "birthMsg": {},
+      "closeTopic": "",
+      "closeQos": "0",
+      "closePayload": "",
+      "closeMsg": {},
+      "willTopic": "",
+      "willQos": "0",
+      "willPayload": "",
+      "willMsg": {},
+      "sessionExpiry": ""
+  }
+]
